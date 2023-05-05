@@ -1,0 +1,40 @@
+.container {
+  float: right;
+  height: 20em;
+  width: 25em;
+  margin: 1em;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  /* border: 2px solid black; */
+}
+
+.pic {
+  height: 220px;
+  width: inherit;
+  
+}
+.pic img {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+.channel {
+  font-weight: bold;
+  font-size: 1em;
+}
+.views {
+  font-size: small;
+  color: black;
+  margin-bottom: 0.2em;
+}
+
+.views span {
+  padding: 0 0.5em;
+}

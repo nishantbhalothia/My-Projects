@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+li{
+    list-style: none;
+}
+
+#heading{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 4rem;
+}
+
+/* outer body of conatct or we can say contact section container */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+}
+.contact{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+    width: 23rem;
+    min-width: 23rem;
+    border-bottom: 1px solid grey;
+}
+
+/* this is name and phone number div style section */
+.name-phone{
+    width: 90%;
+    font-size: 1.5rem;
+    display: flex;
+    margin: .5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+.name-phone:hover{
+    background-color: grey;
+    color: antiquewhite;
+    border-bottom: 2px solid black;
+    /* font-size: 1.65rem; */
+    
+}
+/* input of name and phone number style section  */
+input{
+    padding: 1em 0;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+input:hover{
+    background-color: azure;
+    border-radius: 5px;
+
+}
+input::placeholder{
+    font-size: 1rem;
+}
+.submit{
+    /* padding: 1em 0; */
+    background: none;
+    height: 3rem;
+    width: 4rem;
+    font-size: 1rem;
+    color: grey;
+
+}

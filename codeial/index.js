@@ -5,6 +5,8 @@ const port = 3000;
 
 // we are using express router
 app.use('/', require('./routes/index.js'));
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 
 app.listen(port, (err) => {

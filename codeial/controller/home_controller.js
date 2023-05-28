@@ -1,3 +1,6 @@
 module.exports.home =(req,res)=>{
-    return res.end('<h1>Express is up for Codeial !</h1>');
+    return res.render('home.ejs',{
+        title: 'My Home page',
+        desc:'first description rendering using controller and render from view folder home.ejs file'
+    })
 }

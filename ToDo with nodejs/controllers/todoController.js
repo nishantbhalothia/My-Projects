@@ -1,6 +1,9 @@
 
 const Todo = require('../models/todo.js')
 
+// ========================================================
+// rendering home page using Todo model (schema)
+// ========================================================
 module.exports.getTodo =async (req, res) => {
     let todos =await Todo.find({})
     res.render('home.ejs',{
@@ -11,7 +14,9 @@ module.exports.getTodo =async (req, res) => {
 
 
 
-
+// ========================================================
+// creatin a todo list
+// ======================================================== 
 module.exports.createTodo = async(req, res) => {
     await Todo.create({
         task: req.body.task,
@@ -21,6 +26,9 @@ module.exports.createTodo = async(req, res) => {
 }
 
 
+// ========================================================
+// deleting a todo list through get request using query
+// ========================================================
 module.exports.deleteTodo = async(req, res) => {
     let id = req.query.id;
     let todoId = await Todo.findByIdAndDelete(id);

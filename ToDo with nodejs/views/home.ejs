@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://kit.fontawesome.com/b16d3c3182.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title%></title>
+
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+  </head>
+  <body>
+    <h1 id="todo_heading">My todo list</h1>
+    <div class="outer">
+      <ul>
+        <% for (let i of todos){ %>
+        <li>
+          <div class="check-and-delete">
+            <div class="check-box">
+              <div id="checkbox-btn" onclick="document.getElementById('<%= i._id %>').style['text-decoration']='line-through'"><i class="fa-regular fa-square" onclick="this.style['text-decoration']='line-through'"></i></div>
+
+              <div id="<%= i._id %>"><%= i.task %></div>
+              <div id="date"><%= i.date %></div>
+            </div>
+            <div class="delete-btn">
+              <a href="/delete-todo/?id=<%= i._id %>">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+            </div>
+          </div>
+          <!-- <div class="delete-btn">
+                    <form action="/delete-todo" method="post" >
+                        <button type="submit" name="delete" value="<%= i._id%>">
+                            <i id="delete" class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </form>
+                    
+                </div> -->
+        </li>
+        <%}%>
+      </ul>
+
+      <form action="/create-todo" method="post">
+        <input type="text" name="task" placeholder="Add a new item" />
+        <input type="date" name="date" placeholder="00/00/0000" />
+        <button type="submit">Add</button>
+      </form>
+    </div>
+    <script src="js/home.js"></script>
+  </body>
+</html>

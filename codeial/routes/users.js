@@ -13,6 +13,10 @@ router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
 
 router.post('/create', usersController.create);
+router.post('/create-session', usersController.createSession);
+
+
+
 
 router.get('/', (req, res) => {
     res.send('Please login to view profile or sign up to create a new account');

@@ -9,12 +9,20 @@ module.exports.profile = (req, res)=>{
 }
 
 module.exports.signUp = (req, res)=>{
+    // if user is already signed-up then redirect to profile page
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    };
     res.render('sign_in.ejs',{
         title: 'Sign Up page'
     })
 }
 
 module.exports.signIn = (req, res)=>{
+    // if user is already signed-in then redirect to profile page
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    };
     res.render('sign_in.ejs',{
         title: 'Sign In page'
     })
@@ -26,8 +34,7 @@ module.exports.signIn = (req, res)=>{
 
 
 // get to the signup data
-
-
+// user is created in database and redirect to sign in page if user already exist then redirect to sign in page
 
 module.exports.create = async (req, res)=>{
     if(req.body.password != req.body.confirm_password){
@@ -62,3 +69,7 @@ module.exports.create = async (req, res)=>{
 //     })
 
 // }
+
+module.exports.createSession= async (req, res)=>{
+    return res.redirect('/')
+}

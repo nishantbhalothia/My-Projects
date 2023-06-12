@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
     res.send('Please login to view profile or sign up to create a new account');
 });
 
+router.get('/sign-out', usersController.destroySession);
 
 
 

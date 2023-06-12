@@ -32,10 +32,10 @@ module.exports.signIn = (req, res)=>{
 
 
 
-
+// =============================================================================================================
 // get to the signup data
 // user is created in database and redirect to sign in page if user already exist then redirect to sign in page
-
+// =============================================================================================================
 module.exports.create = async (req, res)=>{
     if(req.body.password != req.body.confirm_password){
         return res.redirect('back');
@@ -70,6 +70,18 @@ module.exports.create = async (req, res)=>{
 
 // }
 
+
+// =============================================================================================================
+// sign in and create session for user
+// =============================================================================================================
 module.exports.createSession= async (req, res)=>{
     return res.redirect('/')
+}
+
+// ===================sign out  and destroy session===================
+// logout and destroy session and redirect to home page
+// ===================sign out  and destroy session===================
+module.exports.destroySession =async (req, res)=>{
+    req.logout((err)=>{if(err){console.log('error in logout',err); return}});
+    return res.redirect('/');
 }

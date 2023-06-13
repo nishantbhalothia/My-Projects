@@ -54,9 +54,11 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
+
+// all routes are in index.js
 app.use('/', require('./routes/index.js'));
-app.use('/testing', require('./routes/testing.js'));
-app.use('/users', require('./routes/users.js'));
+// app.use('/testing', require('./routes/testing.js'));
+// app.use('/users', require('./routes/users.js'));
 
 app.listen(port, (err) => {
     if (err) {

@@ -8,7 +8,17 @@ const app = express();
 const port = 3000;
 const db = require('./config/mongoose.js');
 const MongoStore = require('connect-mongo')(session); //this MongoStore is working only in -v3 in my code(use this command => npm i connect-mongo@3)
+const sassMiddleware = require('node-sass-middleware');
 
+
+
+app.use(sassMiddleware({
+    src:'./assets/scss',
+    dest:'./assets/css',
+    debug:true,
+    outputStyle: 'expanded',
+    prefix: '/css'
+}))
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static('./assets'));

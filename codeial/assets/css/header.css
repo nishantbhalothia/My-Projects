@@ -1,0 +1,39 @@
+header {
+  padding: 0 1em;
+  background-color: aquamarine;
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header p {
+  font-size: 2em;
+  color: white;
+  font-weight: bold;
+}
+
+header ul {
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header div {
+  display: flex;
+  flex-direction: column;
+}
+
+header div li {
+  list-style: none;
+}
+
+header div li a {
+  text-decoration: none;
+}
+
+header div li a:hover {
+  color: gray;
+}

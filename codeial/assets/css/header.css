@@ -1,39 +1,59 @@
-header {
+#main_header {
   padding: 0 1em;
-  background-color: aquamarine;
+  background: #0079FF;
   height: 5rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid black;
 }
 
 header p {
   font-size: 2em;
   color: white;
   font-weight: bold;
+  cursor: pointer;
+  background: transparent;
 }
 
 header ul {
-  font-size: 1em;
+  font-size: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent;
 }
 
-header div {
+header li {
+  list-style: none;
+  padding-right: 1em;
+  background: transparent;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  background: transparent;
+}
+
+header .user-login {
   display: flex;
   flex-direction: column;
+  background: transparent;
 }
 
-header div li {
+header .user-login li {
   list-style: none;
+  background: transparent;
 }
 
-header div li a {
+header .user-login li a {
+  color: whitesmoke;
   text-decoration: none;
+  background: transparent;
 }
 
-header div li a:hover {
+header .user-login li a:hover {
   color: gray;
 }

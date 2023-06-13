@@ -1,14 +1,15 @@
-<header>
+<link rel="stylesheet" href="/css/header.css">
+<header id="main_header">
     <p>Codeial</p>
 
     <ul>
         <%if (locals.user) {%>
-            <div>
+            <div class="user-login">
                 <li><a href="/users/profile"><%= user.name%></a></li>
                 <li><a href="/users/sign-out">Logout</a></li>
             </div>
         <%}else{%>
-            </div>
+            </div class="user-login">
                 <li><a href="/users/sign-in">Login</a></li>
                 <li><a href="/users/sign-in">Register</a></li>
             </div>

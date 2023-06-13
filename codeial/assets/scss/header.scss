@@ -1,27 +1,45 @@
-header{
+#main_header{
     padding: 0 1em;
-    background-color: aquamarine;
+    background: #0079FF;
     height: 5rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid black;
+}
+header{
     p{
         font-size: 2em;
         color: white;
         font-weight: bold;
+        cursor: pointer;
+        background: transparent;
     }ul{
-        font-size: 1em;
+        font-size: 1.2em;
         display: flex;
         justify-content: center;
         align-items: center;
-    }div{
+        background: transparent;
+    }li{
+        list-style: none;
+        padding-right: 1em;
+        background: transparent;
+    }a{
+        color: white;
+        text-decoration: none;
+        background: transparent;
+    }.user-login{
         display: flex;
         flex-direction: column;
+        background: transparent;
         li{
             list-style: none;
+            background: transparent;
             a{
+                color: whitesmoke;
                 text-decoration: none;
+                background: transparent;
             }a:hover{
                 color: gray;
             }

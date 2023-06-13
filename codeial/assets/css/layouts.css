@@ -5,3 +5,11 @@
   font-family: 'Poppins', sans-serif;
   text-align: center;
 }
+
+#layouts_body {
+  background-color: white;
+}
+
+#layouts_body main {
+  height: 90vh;
+}

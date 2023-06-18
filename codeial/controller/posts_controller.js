@@ -8,3 +8,8 @@ module.exports.create = async function(req, res){
     });
     return res.redirect('back');
 }
+
+module.exports.destroy = async function(req, res){
+    await Post.findByIdAndDelete(req.params.id);
+    res.redirect('back');
+}

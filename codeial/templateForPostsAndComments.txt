@@ -1,0 +1,47 @@
+<section id="post-feed">
+        <h2>Posts</h2>
+        <form id="new-post-form" action="/posts/create" method="post">
+            <textarea name="content" id="" cols="30" rows="05" placeholder="Write here....."></textarea>
+            <button type="submit" value="post">Post</button>
+        </form>
+
+        <div id="posts-list-container">
+            <ul>
+                <% for(let post of posts){ %>
+                    <li>
+                        <%= post.content %>
+                    </li>
+                    <!-- <li>
+                        <div class="post">
+                            <div class="post-content">
+                                <span class="post-user"><%= post.user.name %></span>
+                                <span class="post-content"><%= post.content %></span>
+                                <span class="post-date"><%= post.createdAt %></span>
+                            </div>
+                            <div class="post-comments">
+                                <form action="/comments/create" method="post">
+                                    <input type="text" name="content" placeholder="Type here to add comment...">
+                                    <input type="hidden" name="post" value="<%= post._id %>">
+                                    <button type="submit" value="comment">Comment</button>
+                                </form>
+                                <div class="post-comments-list">
+                                    <ul>
+                                        <% for(let comment of post.comments){ %>
+                                            <li>
+                                                <span class="post-comment-user"><%= comment.user.name %></span>
+                                                <span class="post-comment-content"><%= comment.content %></span>
+                                                <span class="post-comment-date"><%= comment.createdAt %></span>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li> -->
+                <% } %>
+            </ul>
+        </div>
+        <div>
+            checking
+        </div>
+    </section>

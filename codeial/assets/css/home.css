@@ -1,3 +1,7 @@
-#home_body {
-  background-color: #DFFFD8;
+#post-feed #new-post-form {
+  margin-left: 1.5em;
+}
+
+#post-feed .posts-list-container {
+  margin-left: 10px;
 }

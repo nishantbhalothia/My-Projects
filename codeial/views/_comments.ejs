@@ -1,0 +1,10 @@
+<li>
+    <span class="post-comment-user">By :&nbsp;<%= comment.user.name %></span> </br>
+    <span class="post-comment-content"><%= comment.content %></span> </br>
+    <!-- <span class="post-comment-date"><%= comment.createdAt %></span> </br> -->
+    <% if(locals.user && locals.user.id == comment.user.id){ %>
+        <form action="/comments/destroy/<%= comment.id %>" method="post">
+            <button type="submit">Delete Comment</button>
+        </form>
+    <% } %>
+</li>

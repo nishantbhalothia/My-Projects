@@ -22,6 +22,14 @@ module.exports.create = async function (req, res) {
 
 
 module.exports.destroy = async function (req, res) {
-    await Comment.findByIdAndDelete(req.params.id);
-    res.redirect('back');
+    comment =await Comment.findById(req.params.id);
+    if (comment.user == req.user.id) {
+        let postId = comment.post;
+        comment.deleteOne();
+        let post = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+        return res.redirect('back');
+    }
+    else {
+        return res.redirect('back');
+    }
 }

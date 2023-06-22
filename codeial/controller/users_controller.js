@@ -1,10 +1,12 @@
 const User = require('../models/user');
 
 
-module.exports.profile = (req, res)=>{
+module.exports.profile =async (req, res)=>{
+    user = await User.findById(req.params.id);
     res.render('user_profile.ejs',{
         title: 'My Profile page',
-        desc:'first description rendering using controller and render from view folder profile.ejs file'
+        desc:'first description rendering using controller and render from view folder profile.ejs file',
+        profile_user:user
     })
 }
 

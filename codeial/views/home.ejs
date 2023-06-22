@@ -24,5 +24,14 @@
             </ul>
         </div>
     </section>
+    <section class="user-friends">
+        <h4>Friends</h4>
+        <% for (u of all_users){ %>
+            <div class="user">
+                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+            </div>
+        <% } %>
+
+    </section>
 </body>
 </html>

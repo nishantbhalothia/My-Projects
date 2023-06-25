@@ -1,7 +1,38 @@
-#post-feed #new-post-form {
+#home-container {
+  display: flex;
+}
+
+#home-container #post-feed {
+  width: 60%;
+  padding: 0 1em;
+}
+
+#home-container #post-feed #new-post-form {
   margin-left: 1.5em;
 }
 
-#post-feed .posts-list-container {
+#home-container #post-feed .posts-list-container {
   margin-left: 10px;
+}
+
+#home-container #user-friends {
+  border-left: 1px solid #ccc;
+  width: 20%;
+  padding: 0 1em;
+}
+
+#home-container #user-profile {
+  width: 20%;
+  padding: 0 1em;
+  border-right: 1px solid #ccc;
+}
+
+#home-container #user-profile h2 a {
+  color: #000;
+  text-decoration: none;
+}
+
+#home-container #user-profile h2 a:hover {
+  color: #427E93;
+  text-decoration: underline;
 }

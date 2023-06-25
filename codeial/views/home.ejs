@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/home.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/home.css" />
     <title><%= title %></title>
-</head>
-<body class="home_body">
+  </head>
+  <body class="home_body">
     <h1>Codeial : <%= desc %></h1>
-    <section id="post-feed">
+    <div id="home-container">
+        <section id="user-profile">
+            <h2><a href="/users/myProfile">My Profile</a></h2>
+            <div id="user">
+                <div id="user-name">
+                    Name : &nbsp;<%= user.name %>
+                </div>
+                <div id="user-email">
+                    Email : &nbsp;<%= user.email %>
+                </div>
+
+        </section>
+      <section id="post-feed">
         <h2>Posts</h2>
         <form id="new-post-form" action="/posts/create" method="post">
-            <textarea name="content" id="" cols="30" rows="05" placeholder="Write here....."></textarea>
-            <button type="submit" value="post">Post</button>
+          <textarea
+            name="content"
+            id=""
+            cols="30"
+            rows="05"
+            placeholder="Write here....."
+          ></textarea>
+          <button type="submit" value="post">Post</button>
         </form>
 
         <div id="posts-list-container">
-            <ul>
-                <% for(let post of posts){ %>
-                    <%- include('_posts.ejs', {post: post}); %>
-                <% } %>
-            </ul>
+          <ul>
+            <% for(let post of posts){ %>
+                 <%- include('_posts.ejs', {post:post}); %> 
+            <% } %>
+          </ul>
         </div>
-    </section>
-    <section class="user-friends">
+      </section>
+      <section id="user-friends">
         <h4>Friends</h4>
         <% for (u of all_users){ %>
-            <div class="user">
-                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-            </div>
+        <div class="user">
+          <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+        </div>
         <% } %>
-
-    </section>
-</body>
+      </section>
+    </div>
+  </body>
 </html>

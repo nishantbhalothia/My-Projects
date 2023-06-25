@@ -9,6 +9,14 @@ module.exports.profile =async (req, res)=>{
         profile_user:user
     })
 }
+module.exports.update =async (req, res)=>{
+    if(req.user.id == req.params.id){
+        user = await User.findByIdAndUpdate(req.params.id, req.body);
+        return res.redirect('/');
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
 
 module.exports.signUp = (req, res)=>{
     // if user is already signed-up then redirect to profile page

@@ -6,8 +6,6 @@ const User = require('../models/user');
 passport.use(new LocalStrategy({
     usernameField : 'email'
     },
-    // done is callback function
-    // done is called when the authentication is finished
     async(email, password , done)=>{
         user =await User.findOne({email:email});
             

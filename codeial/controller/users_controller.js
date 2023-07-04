@@ -47,6 +47,7 @@ module.exports.signIn = (req, res)=>{
 // user is created in database and redirect to sign in page if user already exist then redirect to sign in page
 // =============================================================================================================
 module.exports.create = async (req, res)=>{
+    req.flash('success', 'You have signed up, login to continue!');
     if(req.body.password != req.body.confirm_password){
         return res.redirect('back');
     }
@@ -85,6 +86,7 @@ module.exports.create = async (req, res)=>{
 // sign in and create session for user
 // =============================================================================================================
 module.exports.createSession= async (req, res)=>{
+    req.flash('success', 'Logged in Successfully');
     return res.redirect('/')
 }
 
@@ -93,5 +95,6 @@ module.exports.createSession= async (req, res)=>{
 // ===================sign out  and destroy session===================
 module.exports.destroySession =async (req, res)=>{
     req.logout((err)=>{if(err){console.log('error in logout',err); return}});
+    req.flash('success', 'logged out!');
     return res.redirect('/');
 }

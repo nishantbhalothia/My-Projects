@@ -9,7 +9,8 @@ const port = 3000;
 const db = require('./config/mongoose.js');
 const MongoStore = require('connect-mongo')(session); //this MongoStore is working only in -v3 in my code(use this command => npm i connect-mongo@3)
 const sassMiddleware = require('node-sass-middleware');
-
+const flash = require('connect-flash');
+const flashMiddleware = require('./config/middleware.js');
 
 
 app.use(sassMiddleware({
@@ -53,6 +54,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(flashMiddleware.setFlash);
 
 
 // all routes are in index.js

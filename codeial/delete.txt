@@ -1,120 +1,94 @@
-const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
-const cookieParser = require('cookie-parser');
-const session = require('express-session'); // Add express-session
-const passport = require('passport');
-const passportLocal = require('./config/passport_local_strategy.js');
-const app = express();
-const port = 3000;
-const db = require('./config/mongoose.js');
-
-app.use(express.urlencoded());
-app.use(cookieParser());
-app.use(express.static('./assets'));
-app.use(expressLayouts);
-
-app.set('layout extractStyles', true);
-app.set('layout extractScripts', true);
-
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-// Add express-session middleware
-app.use(session({
-    name: 'codeial',
-    secret: 'blashsomething',
-    saveUninitialized: false,
-    resave: false,
-    cookie: {
-        maxAge: (1000 * 60 * 100)
-    }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(passport.setAuthenticatedUser);
-
-app.use('/', require('./routes/index.js'));
-app.use('/testing', require('./routes/testing.js'));
-app.use('/users', require('./routes/users.js'));
-
-app.listen(port, (err) => {
-    if (err) {
-        console.log('Server is down!', err);
-    }
-    console.log(`Server is running on port ${port}`);
-});
-
-//===========================================================================================================
-above code is corrected by chat gpt  using this is code and pasted error also and correct my code
-//===========================================================================================================
+// Method to create a post in DOM
+let newPostDom = function (post) {
+    return $(`<li id="post-${post._id}">
+    <p>
+        <small>
+            <a class="delete-post-button" href="/posts/destroy/${post._id}">X</a>
+        </small>
+        ${post.content}
+        <br>
+        <small>
+            ${post.user.name}
+        </small>
+    </p>
+    <div class="post-comments">
+        <form action="/comments/create" method="POST">
+            <input type="text" name="content" placeholder="Type Here to add comment..." required>
+            <input type="hidden" name="post" value="${post._id}" >
+            <input type="submit" value="Add Comment">
+        </form>
+        <div class="post-comments-list">
+            <ul id="post-comments-${post._id}">
+                
+            </ul>
+        </div>
+    </div>
+</li>`)
+}
 
 
+// Method to delete a post from DOM
+let deletePost = function (deleteLink) {
+    $(deleteLink).click(function (e) {
+        e.preventDefault();
 
-//===========================================================================================================
-//this is my code written with instructer of coding ninjas 
-// below code is also working
-//===========================================================================================================
-const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const passport = require('passport');
-const passportLocal = require('./config/passport_local_strategy.js')
-const app = express();
-const port = 3000;
-const db = require('./config/mongoose.js');
+        $.ajax({
+            type: 'get',
+            url: $(deleteLink).prop('href'),
+            success: function (data) {
+                $(`#post-${data.data.post_id}`).remove();
+                new Noty({
+                    theme: 'relax',
+                    text: "Post Deleted!",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();
+            }, error: function (error) {
+                console.log(error.responseText);
+            }
+        });
+    });
+}
 
+// Method to create a comment in DOM
+let newCommentDom = function (comment) {
+    return $(`<li id="comment-${comment._id}">
+    <p>
+        <small>
+            <a class="delete-comment-button" href="/comments/destroy/${comment._id}">X</a>
+        </small>
+        ${comment.content}
+        <br>
+        <small>
+            ${comment.user.name}
+        </small>
+    </p>
+</li>`)
+}
 
-app.use(express.urlencoded());
-app.use(cookieParser());
-app.use(express.static('./assets'));
-app.use(expressLayouts);
+// Method to delete a comment from DOM
+let deleteComment = function (deleteLink) {
+    $(deleteLink).click(function (e) {
+        e.preventDefault();
 
-// extract style and scripts from sub pages into the layout
-app.set('layout extractStyles', true);
-app.set('layout extractScripts', true);
-
-
-
-
-// set up the view engine
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-
-// mongo store is used to store the session cookie in the db
-app.use(session({
-    name: 'codeial',
-    secret : 'blashsomething',
-    saveUninitialized: false,
-    resave: false,
-    cookie:{
-        maxAge: (1000*60*100)
-    }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(passport.setAuthenticatedUser);
-
-// use express router
-app.use('/',require('./routes'));
-
-// we are using express router and this is a middleware
-// we send(route) '/' this request to ./routes/indes.js
-app.use('/', require('./routes/index.js'));
-app.use('/testing' , require('./routes/testing.js'))
-app.use('/users', require('./routes/users.js'));
-
-
-
-app.listen(port, (err) => {
-    if (err) {
-        console.log('server is down !', err);
-    }
-    console.log(`server is running on port ${port}`);
-});
-
+        $.ajax({
+            type: 'get',
+            url: $(deleteLink).prop('href'),
+            success: function (data) {
+                $(`#comment-${data.data.comment_id}`).remove();
+                new Noty({
+                    theme: 'relax',
+                    text: "Comment Deleted!",
+                    type: 'success',
+                    layout: 'topRight',
+                    timeout: 1500
+                    
+                }).show();
+            }, error: function (error) {
+                console.log(error.responseText);
+            }
+        });
+    });
+}

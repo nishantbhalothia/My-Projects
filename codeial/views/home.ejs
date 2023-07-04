@@ -13,12 +13,15 @@
         <section id="user-profile">
             <h2><a href="/users/myProfile">My Profile</a></h2>
             <div id="user">
-                <div id="user-name">
+                <%if (locals.user) {%>
+                  <div id="user-name">
                     Name : &nbsp;<%= user.name %>
-                </div>
-                <div id="user-email">
+                  </div>
+                  <div id="user-email">
                     Email : &nbsp;<%= user.email %>
-                </div>
+                  </div>
+                <% } %>
+            </div>
 
         </section>
       <section id="post-feed">
@@ -51,5 +54,6 @@
         <% } %>
       </section>
     </div>
+    <script src="/js/home_posts.js"></script>
   </body>
 </html>

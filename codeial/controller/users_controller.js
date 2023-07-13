@@ -12,7 +12,19 @@ module.exports.profile =async (req, res)=>{
 module.exports.update =async (req, res)=>{
     if(req.user.id == req.params.id){
         user = await User.findByIdAndUpdate(req.params.id, req.body);
-        return res.redirect('/');
+        User.uploadedAvatar(req, res, (err)=>{  // multer function
+            if(err){
+                console.log('Multer Error', err);
+            }   
+            user.name = req.body.name;
+            user.email = req.body.email;
+            if(req.file){
+                // this is saving the path of the uploaded file into the avatar field in the user
+                user.avatar = User.avatarPath + '/' + req.file.filename;
+            }
+            user.save();
+            return res.redirect('back');
+        });
     }else{
         return res.status(401).send('Unauthorized');
     }

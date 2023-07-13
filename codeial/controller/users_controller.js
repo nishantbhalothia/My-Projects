@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const fs = require('fs');
+const path = require('path');
 
 
 module.exports.profile =async (req, res)=>{
@@ -9,26 +11,46 @@ module.exports.profile =async (req, res)=>{
         profile_user:user
     })
 }
-module.exports.update =async (req, res)=>{
-    if(req.user.id == req.params.id){
-        user = await User.findByIdAndUpdate(req.params.id, req.body);
-        User.uploadedAvatar(req, res, (err)=>{  // multer function
-            if(err){
-                console.log('Multer Error', err);
-            }   
-            user.name = req.body.name;
-            user.email = req.body.email;
-            if(req.file){
-                // this is saving the path of the uploaded file into the avatar field in the user
-                user.avatar = User.avatarPath + '/' + req.file.filename;
+module.exports.update = async (req, res) => {
+    if (req.user.id == req.params.id) {
+      try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+          return res.status(404).send('User not found');
+        }
+  
+        User.uploadedAvatar(req, res, (err) => {
+          if (err) {
+            console.log('Multer Error', err);
+          }
+  
+          user.name = req.body.name;
+          user.email = req.body.email;
+  
+          if (req.file) {
+            if (user.avatar) {
+              try {
+                fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+              } catch (err) {
+                console.log('Error deleting previous avatar', err);
+              }
             }
-            user.save();
-            return res.redirect('back');
+  
+            user.avatar = User.avatarPath + '/' + req.file.filename;
+          }
+  
+          user.save();
+          return res.redirect('back');
         });
-    }else{
-        return res.status(401).send('Unauthorized');
+      } catch (err) {
+        console.log('Error finding user', err);
+        return res.status(500).send('Internal Server Error');
+      }
+    } else {
+      return res.status(401).send('Unauthorized');
     }
-}
+  };
+  
 
 module.exports.signUp = (req, res)=>{
     // if user is already signed-up then redirect to profile page

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-console.log('Router got kiccked in')
+console.log('Root index for Routes got kiccked in')
 
 
 const homeController = require('../controller/home_controller.js')
@@ -13,5 +13,8 @@ router.use('/users', require('./users.js'));
 router.use('/testing', require('./testing.js'));
 router.use('/posts', require('./posts.js'));
 router.use('/comments', require('./comments.js'));
+
+// api routes
+router.use('/api', require('./api'));
 
 module.exports = router;

@@ -5,6 +5,7 @@ const session = require('express-session'); // Add express-session
 const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy.js');
 const passportJWT = require('./config/passport_jwt_strategy.js');
+const passportGoogle = require('./config/passport-google-oauth2-strategy.js');
 const app = express();
 const port = 3000;
 const db = require('./config/mongoose.js');

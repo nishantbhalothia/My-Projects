@@ -1,18 +1,31 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const commentsMailer = require('../mailers/comments_mailer');
+
 
 module.exports.create = async function (req, res) {
-    post =await Post.findById(req.body.post)
-    if (post) {
-        let comment = await Comment.create({
+    try {
+        const post = await Post.findById(req.body.post);
+        if (!post) {
+            return res.status(404).json({
+                message: "Post not found"
+            });
+        }
+
+        const comment = await Comment.create({
             content: req.body.content,
             post: req.body.post,
             user: req.user._id
         });
+
         post.comments.push(comment);
-        post.save();
-        if (req.xhr){
-            comment = await comment.populate('user', 'name').execPopulate();
+        await post.save();
+
+        comment.user = req.user;
+
+        commentsMailer.newComment(comment); // this will send the mail to the user who has commented on the post
+
+        if (req.xhr) {
             return res.status(200).json({
                 data: {
                     comment: comment
@@ -20,15 +33,17 @@ module.exports.create = async function (req, res) {
                 message: "Comment created!"
             });
         }
+
         req.flash('success', 'Comment published!');
-        return res.redirect('back');    
+        return res.redirect('back');
+    } catch (err) {
+        console.error("Error creating comment:", err);
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
     }
-    // await Comment.create({
-    //     content: req.body.content,
-    //     user: req.user._id
-    // });
-    // return res.redirect('back');
-}
+};
+
 
 
 module.exports.destroy = async function (req, res) {

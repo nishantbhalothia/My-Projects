@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - codingnepalweb.com -->
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -20,27 +19,36 @@
             <div class="form login">
                 <div class="form-content">
                     <header>Login</header>
-                    <form action="/users/login" method="post">
+                    <form id="firstForm" action="/users/login" method="post">
+                        <!-- <div class="field input-field">
+                            <input id="emailInput" type="email" name="email" placeholder="Email / Phone " class="input" required>
+                        </div> -->
                         <div class="field input-field">
-                            <input type="email" name="email" placeholder="Email" class="input" required>
+                            <input id="identifierInput" type="text" name="identifier" placeholder="Email / Phone" class="input" required>
                         </div>
+                        
 
-                        <div class="field input-field">
-                            <input type="password" name="password" placeholder="Password" class="password" required>
+                        <!-- <div class="field input-field">
+                            <input type="password" name="password" placeholder="Password / OTP " class="password" required>
                             <i class='bx bx-hide eye-icon'></i>
-                        </div>
+                        </div> -->
 
                         <div class="form-link">
                             <a href="#" class="forgot-pass">Forgot password?</a>
                         </div>
 
                         <div class="field button-field">
-                            <button>Login</button>
+                            <button class="link" type="button" id="continueButton">Continue</button>
                         </div>
+
+                        <div class="field button-field">
+                            <a href="/users/send-otp">Send OTP</a>
+                        </div>
+
                     </form>
 
                     <div class="form-link">
-                        <span>Don't have an account? <a href="#" class="link signup-link">Signup</a></span>
+                        <span>Don't have an account? <a href="/users/sign-up" class="signup-link">Signup</a></span>
                     </div>
                 </div>
 
@@ -62,58 +70,35 @@
 
             </div>
 
-            <!-- Signup Form -->                        <!-- create acount -->
 
-            <div class="form signup">
+
+<!-- Second Form (Password Entry) -->
+            <div class="form enter-password">
                 <div class="form-content">
-                    <header>Signup</header>
-                    <form action="/users/create" method="post">
-                        <div class="field input-field">
-                            <input type="text" name="name" placeholder="Your Name" class="input" required>
+                    <form action="/users/login" method="post">
+                        <div class="field input-field autofilled">
+                            <input type="text" name="identifier" placeholder="Email / Phone " class="input" required>
                         </div>
                         <div class="field input-field">
-                            <input type="email" name="email" placeholder="Email" class="input" required>
-                        </div>
-
-                        <div class="field input-field">
-                            <input type="password" name="password" placeholder="Create password" class="password" required>
-                        </div>
-
-                        <div class="field input-field">
-                            <input type="password" name="confirm_password" placeholder="Confirm password" class="password" required>
+                            <input type="password" name="password" placeholder="Password / OTP " class="password" required>
                             <i class='bx bx-hide eye-icon'></i>
                         </div>
 
-                        <div class="field button-field">
-                            <button>Signup</button>
+                        <div class="form-link">
+                            <a href="#" class="forgot-pass">Forgot password?</a>
                         </div>
+
+                        <div class="field button-field">
+                            <button>Login</button>
+                        </div>
+
                     </form>
-
-                    <div class="form-link">
-                        <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
-                    </div>
-                </div>
-
-                <div class="line"></div>
-
-                <div class="media-options">
-                    <a href="#" class="field facebook">
-                        <i class='bx bxl-facebook facebook-icon'></i>
-                        <span>Login with Facebook</span>
-                    </a>
-                </div>
-
-                <div class="media-options">
-                    <a href="#" class="field google">
-                        <img src="#" alt="" class="google-img">
-                        <span>Login with Google</span>
-                    </a>
-                </div>
-
             </div>
+
         </section>
 
         <!-- JavaScript -->
         <script src="/js/sign_in.js"></script>
+        <script src="/js/send_otp.js"></script>
     </body>
 </html>

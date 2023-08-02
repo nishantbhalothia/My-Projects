@@ -26,12 +26,12 @@
   background: #FFF;
 }
 
-.form.signup {
+.form.enter-password {
   opacity: 0;
   pointer-events: none;
 }
 
-.forms.show-signup .form.signup {
+.forms.show-signup .form.enter-password {
   opacity: 1;
   pointer-events: auto;
 }

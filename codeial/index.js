@@ -1,4 +1,5 @@
 const express = require('express');
+const dotenv = require('dotenv').config();
 const expressLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
 const session = require('express-session'); // Add express-session
@@ -6,6 +7,8 @@ const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy.js');
 const passportJWT = require('./config/passport_jwt_strategy.js');
 const passportGoogle = require('./config/passport-google-oauth2-strategy.js');
+const twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, {autoRetry: true, maxRetries:3}); // Twilio package for sending SMS
+const nodemailer = require('nodemailer'); // Nodemailer package for sending emails
 const app = express();
 const port = 3000;
 const db = require('./config/mongoose.js');
@@ -74,3 +77,12 @@ app.listen(port, (err) => {
     }
     console.log(`Server is running on port ${port}`);
 });
+
+
+// twilio.messages
+//   .create({
+//     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+//     to: '+918684934444', // Text your number
+//     from: process.env.TWILIO_NUMBER, // From a valid Twilio number
+//   })
+//   .then((message) => console.log(message.sid));

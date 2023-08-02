@@ -25,3 +25,12 @@ link.addEventListener("click", e => {
  forms.classList.toggle("show-signup");
 })
 })
+
+
+
+const emailInputFirstForm = document.getElementById('identifierInput'); //previously id id == emailInput
+const emailInputSecondForm = document.querySelector('.enter-password .autofilled input');
+
+emailInputFirstForm.addEventListener('input', function() {
+  emailInputSecondForm.value = emailInputFirstForm.value;
+});

@@ -92,3 +92,37 @@ let deleteComment = function (deleteLink) {
         });
     });
 }
+
+================================================================================================================
+toggle like button in home.ejs
+================================================================================================================
+<script>
+      $('.toggle-like-button').each(function(){
+        let self = $(this);
+        let toggleLike = new ToggleLike(self);
+        let likesCount = parseInt(self.attr('data-likes'));
+        let postId = self.attr('data-post-id');
+        let likeForm = $('#like-form-'+postId);
+        likeForm.submit(function(e){
+          e.preventDefault();
+          $.ajax({
+            type: 'post',
+            url: '/likes/toggle/?id='+postId+'&type=Post',
+            success: function(data){
+              console.log(data);
+              let likeButton = $('#like-button-'+postId);
+              if(data.data.deleted == true){
+                likesCount -= 1;
+              }else{
+                likesCount += 1;
+              }
+              likeButton.attr('data-likes', likesCount);
+              likeButton.html('<i class="fa-regular fa-heart" style="color: #d20f53;"></i> &nbsp;'+likesCount+' likes');
+            },
+            error: function(error){
+              console.log(error.responseText);
+            }
+          });
+        });
+      })
+    </script>

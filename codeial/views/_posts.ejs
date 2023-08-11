@@ -5,6 +5,15 @@
             <span class="post-user">Posted By : &nbsp;<%= post.user.name %></span> </br>
             
             <span class="post-date">Posted at :<%= post.createdAt %></span> </br>
+            <span>
+                <% if (locals.user){ %>
+                    <a class="toggle-like-button " data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=<%= post._id %>&type=Post">
+                        <i class="fa-regular fa-heart" style="color: #d20f53;"></i></i> &nbsp;<%= post.likes.length %> likes
+                    </a>
+                <% }else{ %>
+                    <%= post.likes.length %> Likes
+                <%} %>
+            </span>
             <% if(locals.user && locals.user.id == post.user.id){ %>
                 <form action="/posts/destroy/<%= post._id %>" method="post">
                     <button class="delete-post-button" type="submit">Delete Post</button>

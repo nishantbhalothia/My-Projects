@@ -14,6 +14,10 @@
           let newPost = newPostDom(data.data.post);
           $("#posts-list-container>ul").prepend(newPost);
           deletePost($(" .delete-post-button", newPost));
+
+          // call the create comment class
+          new ToggleLike($(" .toggle-like-button", newPost));
+
           new Noty({
             theme: "relax",
             text: "Post published!",
@@ -37,6 +41,13 @@
                 <span class="post-content">${post.content}</span> </br>
                 <span class="post-user">Posted By : &nbsp;${post.user.name}</span> </br>
                 <span class="post-date">Posted at :${post.createdAt}</span> </br>
+                <span>
+                <% if (locals.user){ %>
+                    <a class="toggle-like-button " data-likes="<%= post.likes.length %>" href="/likes/toggle/?id=${post._id}&type=Post">
+                        <i class="fa-regular fa-heart" style="color: #d20f53;"></i></i>likes
+                    </a>
+                <%} %>
+            </span>
                 <form action="/posts/destroy/${post._id}" method="post">
                     <button props="/posts/destroy/${post._id}" class="delete-post-button" type="submit">Delete Post</button>
                 </form>

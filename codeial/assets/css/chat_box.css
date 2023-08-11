@@ -1,0 +1,148 @@
+.chat-box-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  height: 400px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-y: scroll;
+}
+
+.chat-box-wrapper .chat-minimise {
+  position: sticky;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 3em;
+  background-color: #ccc;
+  border-radius: 5px 0 0 0;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
+}
+
+.chat-box-wrapper .chat-minimise div i:hover {
+  color: #000;
+}
+
+.chat-box-wrapper #chat-section #to-user-ul {
+  list-style: none;
+  margin: 0;
+  padding: 1em 2em 0 1em;
+}
+
+.chat-box-wrapper #chat-section #to-user-ul .to-user {
+  padding: .5em 0;
+}
+
+.chat-box-wrapper #chat-section #to-user-ul .to-user p {
+  margin-bottom: 0;
+}
+
+.chat-box-wrapper #chat-section #by-user-ul {
+  list-style: none;
+  margin: 0;
+  padding: 1em 1em 0 2em;
+  text-align: right;
+}
+
+.chat-box-wrapper #chat-section #by-user-ul .by-user {
+  padding: .5em 0;
+}
+
+.chat-box-wrapper #chat-section #by-user-ul .by-user p {
+  margin-bottom: 0;
+}
+
+.chat-box-wrapper #chat-input {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 3em;
+  background-color: #ccc;
+  border-radius: 0 0 5px 0;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  color: #fff;
+  padding: 0 .5em;
+}
+
+.chat-box-wrapper #chat-input #chat-wrapper-div {
+  position: inherit;
+  margin-top: .5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: whitesmoke;
+}
+
+.chat-box-wrapper #chat-input #chat-wrapper-div input {
+  width: 80%;
+  height: 3em;
+  border: none;
+  padding: 0 1em;
+  background: transparent;
+}
+
+.chat-box-wrapper #chat-input #chat-wrapper-div input:focus {
+  outline: none;
+}
+
+.chat-box-wrapper #chat-input #chat-wrapper-div button {
+  width: 20%;
+  height: 3em;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.chat-box-wrapper #chat-input #chat-wrapper-div button:focus {
+  outline: none;
+}
+
+.chat-box-cont::-webkit-scrollbar {
+  width: 5px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.chat-box-cont::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+#open-chat-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 3em;
+  height: 3em;
+  background-color: #ccc;
+  border-radius: 5px 0 0 0;
+  cursor: pointer;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  color: #fff;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#open-chat-box i {
+  margin: 0;
+  padding: 0;
+}

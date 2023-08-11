@@ -9,13 +9,21 @@ const passportJWT = require('./config/passport_jwt_strategy.js');
 const passportGoogle = require('./config/passport-google-oauth2-strategy.js');
 const twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN, {autoRetry: true, maxRetries:3}); // Twilio package for sending SMS
 const nodemailer = require('nodemailer'); // Nodemailer package for sending emails
+const cors = require('cors'); // CORS package for cross origin requests
 const app = express();
-const port = 3000;
+const port = 4000;
 const db = require('./config/mongoose.js');
 const MongoStore = require('connect-mongo')(session); //this MongoStore is working only in -v3 in my code(use this command => npm i connect-mongo@3)
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const flashMiddleware = require('./config/middleware.js');
+
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_socket.js').chatSockets(chatServer);
+chatServer.listen(5000);
+
+app.use(cors({ origin: 'http://localhost:4000' }));// Allow requests from localhost:4000
+
 
 
 app.use(sassMiddleware({

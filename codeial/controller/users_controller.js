@@ -1,9 +1,11 @@
 const User = require("../models/user");
+const Otp = require("../models/otp");
 const fs = require("fs");
 const path = require("path");
 const twilio = require("twilio");
+const crypto = require("crypto");
 
-require('dotenv').config();
+require("dotenv").config();
 
 module.exports.profile = async (req, res) => {
   user = await User.findById(req.params.id);
@@ -126,61 +128,73 @@ module.exports.destroySession = async (req, res) => {
 // =============================================================================================================
 // =========================== sending otp to user =============================================================
 // =============================================================================================================
-module.exports.sendOtp=async(req, res) => {
+module.exports.sendOtp = async (req, res) => {
   const otpStorage = {};
 
   try {
-      const phone = req.body.phone;
+    const phone = req.body.phone;
 
-      // Check if an OTP was sent within the last X seconds (e.g., 60 seconds)
-      const now = Date.now();
-      const lastOtpTime = otpStorage[phone]?.timestamp || 0; // Default to 0 if not found
-      if (now - lastOtpTime < 60000) { // Adjust the time interval as needed
-          return res.status(400).json({ message: 'OTP already sent. Please wait before sending another.' });
-      }
+    // Check if an OTP was sent within the last X seconds (e.g., 60 seconds)
+    const now = Date.now();
+    const lastOtpTime = otpStorage[phone]?.timestamp || 0; // Default to 0 if not found
+    if (now - lastOtpTime < 60000) {
+      // Adjust the time interval as needed
+      return res.status(400).json({
+        message: "OTP already sent. Please wait before sending another.",
+      });
+    }
 
-      // Find the user by phone number
-      const user = await User.findOne({ phone });
+    // Find the user by phone number
+    const user = await User.findOne({ phone });
 
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-      }
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-      // Generate OTP
-      const otp = Math.floor(100000 + Math.random() * 900000); // Generate a random 6-digit number
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000); // Generate a random 6-digit number
 
-      // Store OTP and timestamp with expiration
-      otpStorage[phone] = {
-          otp,
-          timestamp: now,
-      };
+    const otpDocument = new Otp({
+      phone: req.body.phone,
+      otp: otp,
+      user: user._id,
+    });
+    await otpDocument.save().then((saved_otp) => console.log(saved_otp));
 
-      // Send OTP using Twilio
-      const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-      await client.messages.create({
-          body: "Your OTP is " + otp + ". Valid for 5 minutes. Do not share this with anyone. ",
-          to: '+91' + user.phone,
-          from: process.env.TWILIO_NUMBER,
-      }).then((message) => console.log(message.sid));
-      console.log(`Sending OTP ${otp} to phone number ${user.phone}`);
+    // Send OTP using Twilio
+    const client = twilio(
+      process.env.TWILIO_ACCOUNT_SID,
+      process.env.TWILIO_AUTH_TOKEN
+    );
+    await client.messages
+      .create({
+        body:
+          "Your OTP for CODEIAL login is " +
+          otp +
+          ". Valid for 5 minutes. Do not share this with anyone. ",
+        to: "+91" + user.phone,
+        from: process.env.TWILIO_NUMBER,
+      })
+      .then((message) => console.log(message.sid));
+    console.log(`Sending OTP ${otp} to phone number ${user.phone}`);
 
-      // Respond with success
-      res.status(200).json({ message: 'OTP sent successfully' });
+    // Respond with success
+    res.status(200).json({ message: "OTP sent successfully" });
   } catch (error) {
-      // Handle error and respond with an error message
-      console.error('Error sending OTP:', error);
-      res.status(500).json({ message: 'Error sending OTP' });
+    // Handle error and respond with an error message
+    console.error("Error sending OTP:", error);
+    res.status(500).json({ message: "Error sending OTP" });
   }
 
-
-// Set a timer to clear expired OTPs every 5 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const phone in otpStorage) {
-      if (now - otpStorage[phone].timestamp > 300000) { // 5 minutes in milliseconds
-          delete otpStorage[phone];
+  // Set a timer to clear expired timestamps every 5 minutes
+  setInterval(() => {
+    const now = Date.now();
+    for (const phone in otpStorage) {
+      if (now - otpStorage[phone].timestamp > 300000) {
+        // 5 minutes in milliseconds
+        delete otpStorage[phone];
       }
-  }
-}, 300000); // 5 minutes in milliseconds
-console.log(otpStorage)
+    }
+  }, 300000); // 5 minutes in milliseconds
+  console.log("Time Storage ", otpStorage);
 };

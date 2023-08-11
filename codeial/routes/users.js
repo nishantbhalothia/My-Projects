@@ -22,7 +22,7 @@ router.get('/sign-in', usersController.signIn);
 router.post('/create', usersController.create);
 
 // for sending otp to user using twilio
-router.post('/send-otp', usersController.sendOtp);
+// router.post('/send-otp', usersController.sendOtp);
 
 
 // using passport as a middleware to authenticate user
